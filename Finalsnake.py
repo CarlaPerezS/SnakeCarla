@@ -1,3 +1,7 @@
+#snake.py
+#Carla Perez, Aranza Garcia 
+#juego snaka mejorado
+
 from turtle import *
 from random import randrange
 from freegames import square, vector
@@ -6,27 +10,28 @@ import random
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
-colors  = ["green","blue","orange","purple","pink","yellow"] 
-colorSnake = random.choice(colors)
-colorFood= random.choice(colors)
-if colorFood == colorSnake:
+colors  = ["green","blue","orange","purple","pink","yellow"] #lista de colores para la sepiente y para la comida
+colorSnake = random.choice(colors) #elije el color de la serpiente aleatoriamente
+colorFood= random.choice(colors)#elije el color de la comida aleatoriamente
+if colorFood == colorSnake: #no se repite el color 
     colorSnake = random.choice(colors)
 
 
 
 def change(x, y):
-    "Change snake direction."
+  #Direccion de la serpiente
     aim.x = x
     aim.y = y
 
 def inside(head):
-    "Return True if head inside boundaries."
+     #Regresa True si la cabeza esta dentro de los límites
     return -200 < head.x < 190 and -200 < head.y < 190
 def insideFood(food):
-    "Return True if head inside boundaries."
+        #Regresa True si la comida esta dentro de lo límites
     return -200 < food.x < 190 and -200 < food.y < 190
 
 def move():
+     #Mueve a la serpiente un segmento
     "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
@@ -37,7 +42,7 @@ def move():
     if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
         update()
-        write("Game Over", align="center", font=("Arial", 20, "bold"))
+        write("Game Over", align="center", font=("Arial", 20, "bold")) #Escribe Game Over si la serpiente choca o se come a ella misma
         return
 
     snake.append(head)
@@ -68,7 +73,7 @@ def move():
 
 
 def moveFood():
-   
+     #movimiento aleatorio de la comida
     food.x =+ randrange(-10,11,10)
     food.y =+ randrange(-10,11,10)
     if not insideFood(food):
